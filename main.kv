@@ -1,0 +1,136 @@
+MDScreen:
+
+    MDNavigationLayout:
+
+        MDScreenManager:
+            id: screen_manager
+
+            MDScreen:
+                name: "home"
+
+                BoxLayout:
+                    orientation: 'vertical'
+
+                    MDTopAppBar:
+                        title: "Home"
+                        elevation: 0
+                        pos_hint: {"top": 1}
+                        specific_text_color: app.theme_cls.text_color
+                        md_bg_color: '#FFFFFF'
+                        left_action_items: [["menu", lambda x: nav_drawer.set_state("open")]]
+
+                    BoxLayout:
+                        orientation: 'vertical'
+
+                        # ScrollView for logging messages
+                        ScrollView:
+                            size_hint: (1, 0.9)  # Adjust height as needed
+                            MDLabel:
+                                id: log_label
+                                text: app.log_messages
+                                halign: "left"
+                                valign: "top"
+                                size_hint_y: None
+                                height: self.texture_size[1]  # Automatically adjust height
+
+
+                    BoxLayout:
+                        orientation: 'vertical'
+                        MDBoxLayout:
+                            orientation: 'vertical'
+                            adaptive_height: True
+
+                    # Button to start the Bluetooth server
+                    MDBoxLayout:
+                        adaptive_height: True
+                        MDRectangleFlatButton:
+                            text: "Start Bluetooth Server"
+                            on_release: app.start_bluetooth_server()
+
+                        MDRectangleFlatButton:
+                            text: "Send Test Message"
+                            on_release: app.send_test_message()
+
+            MDScreen:
+                name: "inbox"
+
+                BoxLayout:
+                    orientation: 'vertical'
+
+                    MDTopAppBar:
+                        title: "Inbox"
+                        elevation: 0
+                        pos_hint: {"top": 1}
+                        md_bg_color: '#FFFFFF'
+                        specific_text_color: app.theme_cls.text_color
+                        left_action_items: [["menu", lambda x: nav_drawer.set_state("open")]]
+
+                    BoxLayout:
+                        orientation: 'vertical'
+                        MDLabel:
+                            text: "Inbox Screen"
+                            halign: "center"
+
+            MDScreen:
+                name: "outbox"
+
+                BoxLayout:
+                    orientation: 'vertical'
+
+                    MDTopAppBar:
+                        title: "Outbox"
+                        elevation: 0
+                        pos_hint: {"top": 1}
+                        md_bg_color: '#FFFFFF'
+                        specific_text_color: app.theme_cls.text_color
+                        left_action_items: [["menu", lambda x: nav_drawer.set_state("open")]]
+
+                    BoxLayout:
+                        orientation: 'vertical'
+                        MDLabel:
+                            text: "Outbox Screen"
+                            halign: "center"
+
+        MDNavigationDrawer:
+            id: nav_drawer
+            radius: (0, 16, 16, 0)
+
+            MDNavigationDrawerMenu:
+
+                MDNavigationDrawerHeader:
+                    title: "Header title"
+                    text: "Header text"
+                    spacing: "4dp"
+                    padding: "12dp", 0, 0, "56dp"
+
+                MDNavigationDrawerLabel:
+                    text: "Mail"
+
+                MDNavigationDrawerItem:
+                    icon: "home"
+                    text: "Home"
+                    on_release: app.switch_screen("home")
+
+                MDNavigationDrawerItem:
+                    icon: "gmail"
+                    right_text: "+99"
+                    text: "Inbox"
+                    on_release: app.switch_screen("inbox")
+
+                MDNavigationDrawerItem:
+                    icon: "send"
+                    text: "Outbox"
+                    on_release: app.switch_screen("outbox")
+
+                MDNavigationDrawerDivider:
+
+                MDNavigationDrawerLabel:
+                    text: "Labels"
+
+                MDNavigationDrawerItem:
+                    icon: "information-outline"
+                    text: "Label"
+
+                MDNavigationDrawerItem:
+                    icon: "information-outline"
+                    text: "Label"
