@@ -44,3 +44,11 @@ requirements = python3, kivy==2.3.0, https://files.pythonhosted.org/packages/20/
 orientation = portrait
 
 fullscreen = 0
+
+[buildozer]
+
+# (int) Log level (0 = error only, 1 = info, 2 = debug (with command output))
+log_level = 2
+
+# (int) Display warning if buildozer is run as root (0 = False, 1 = True)
+warn_on_root = 1
