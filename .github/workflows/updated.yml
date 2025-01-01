@@ -15,6 +15,25 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      # Install required dependencies
+      - name: Setup dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y build-essential ccache git zip unzip openjdk-11-jdk
+          sudo apt-get install -y libz-dev libncurses5 lib32stdc++6 lib32z1 libssl-dev
+          sudo apt-get install -y libxml2-utils wget curl
+          sudo apt-get install -y python3 python3-pip
+          pip install --upgrade cython
+
+      # Install Android SDK
+      - name: Install Android SDK
+        run: |
+          sudo apt-get install -y android-sdk
+          export ANDROID_HOME=/usr/lib/android-sdk
+          export PATH=$ANDROID_HOME/tools:$ANDROID_HOME/tools/bin:$ANDROID_HOME/platform-tools:$PATH
+          yes | sdkmanager --licenses
+          sdkmanager "platform-tools" "platforms;android-31" "build-tools;31.0.0"
+
       # Cache dependencies with a timeout
       - name: Get Date
         id: get-date
@@ -32,6 +51,13 @@ jobs:
           path: .buildozer
           key: ${{ runner.os }}-${{ env.date }}-${{ hashFiles('buildozer.spec') }}
 
+      # Install Buildozer and Dependencies
+      - name: Install Buildozer and Dependencies
+        run: |
+          pip install --upgrade pip
+          pip install buildozer cython
+
+      # Build APK with Buildozer
       - name: Build with Buildozer
         uses: ArtemSBulgakov/buildozer-action@v1
         id: buildozer
@@ -39,6 +65,7 @@ jobs:
           command: buildozer android debug
           buildozer_version: master
 
+      # Upload APK as an artifact
       - name: Upload artifacts
         uses: actions/upload-artifact@v3
         with:
