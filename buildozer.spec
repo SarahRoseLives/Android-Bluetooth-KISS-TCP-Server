@@ -37,7 +37,7 @@ version = 0.0.2
 
 # (list) Application requirements
 # comma separated e.g. requirements = sqlite3,kivy
-requirements = python3==3.10.8, kivy==2.3.0, kivymd==1.2.0, bleak, typing_extensions
+requirements = python3, kivy==2.3.0, kivymd==1.2.0, bleak, typing_extensions
 #p4a.branch = develop
 
 # (str) Supported orientation (landscape, portrait, etc)
