@@ -14,13 +14,12 @@ jobs:
       - name: Install Dependencies
         run: |
           sudo apt-get update
-          sudo apt-get install -y git zip unzip openjdk-11-jdk python3.10
+          sudo apt-get install -y git zip unzip openjdk-11-jdk python3
           pip install --upgrade Cython
 
-      - name: Install Buildozer and Dependencies
+      - name: Install Buildozer
         run: |
           pip install buildozer
-          pip install pyjnius
 
       - name: Build with Buildozer
         uses: ArtemSBulgakov/buildozer-action@v1
